@@ -1,0 +1,6 @@
+name = First Sub module 
+description = Sub module of first module for practicing
+package = Drupal 7 Development
+core = 7.x
+
+files = first_sub.module

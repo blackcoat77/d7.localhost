@@ -1,0 +1,26 @@
+<?php
+
+/**
+ *  @file 
+ *  File sub module for practicing and using drupal's API
+ * 
+ *  This module serves for testing the API and playing with other functions including coding standards
+ *  
+ */
+
+
+
+/**
+ *  implements hook_help().
+ */
+function first_sub_help($path, $arg) {
+  switch ($path) {
+    // Main module help for the first_sub module
+    case 'admin/help#first_sub':
+        global $user;
+        $values = array('!url' => 'http://google.com', //placeholders:  if we put ! before placeholder it will translate as it is. only for url is good
+                                '@name' => $user->name, // this placeholder will be sanatized inside t function
+                                '%color' => 'blue'); // this placeholder is decorator ex. My favorite color is <em>blue</em>.
+        return t('This is a help text for first_sub module and we are checking placeholder !url and @name and %color', $values);
+    }
+}
