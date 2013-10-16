@@ -5,6 +5,7 @@
  *  File sub module for practicing and using drupal's API
  * 
  *  This module serves for testing the API and playing with other functions including coding standards
+ *  It will create few blocks from the existing module
  *  
  */
 
@@ -22,5 +23,38 @@ function first_sub_help($path, $arg) {
                                 '@name' => $user->name, // this placeholder will be sanatized inside t function
                                 '%color' => 'blue'); // this placeholder is decorator ex. My favorite color is <em>blue</em>.
         return t('This is a help text for first_sub module and we are checking placeholder !url and @name and %color', $values);
+    }
+}
+
+/**
+ *  Implements hook_block_info()
+ */
+function first_sub_block_info()  {
+    $blocks = array();
+    
+    $blocks['list_cities'] = array(
+        'info' => t('List all cities from array'),
+        'cache' => DRUPAL_NO_CACHE,
+    );
+    
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_view()
+ */
+function first_sub_block_view($block_name = ' ')  {
+    if ($block_name == 'list_cities')  {
+        $cities = array('France' => 'Paris', 'Serbia' => 'Belgrade', 'USA' => 'Washington DC', 'Iceland' => 'Reykjavik');
+        
+        $theme_args = array('items' => $cities, 'type' => 'ul');
+        $content = theme('item_list', $theme_args);
+        
+        $block = array(
+            'subject' => t('All cities'),
+            'content' => $content,
+        );
+        
+        return $block;
     }
 }
