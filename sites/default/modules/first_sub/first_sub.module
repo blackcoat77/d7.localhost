@@ -37,15 +37,23 @@ function first_sub_block_info()  {
         'cache' => DRUPAL_NO_CACHE,
     );
     
+    $blocks['list_fruits'] = array(
+        'info' => t('List fall ruits from array'),
+        'cache' => DRUPAL_NO_CACHE,
+    );
+    
     return $blocks;
 }
 
 /**
  * Implements hook_block_view()
  */
-function first_sub_block_view($block_name = ' ')  {
-    
-    if ($block_name == 'list_cities') {
+function first_sub_block_view($block_name = '') {
+  // This example is adapted from node.module.
+  $block = array();
+
+  switch ($block_name) {
+    case 'list_cities':
         global $user;  
         // Show only this block to users profile page with role buyer. Roles are checked in Admin page. Here we just check user
         if (arg(0) == 'user' && $user->uid == arg(1) && arg(2) == '' )  { 
@@ -58,8 +66,25 @@ function first_sub_block_view($block_name = ' ')  {
             'subject' => t('All cities'),
             'content' => $content,
         );
+     }
+      break;
+
+    case 'list_fruits':
         
-        return $block;
-        }
-    }
+        global $user;  
+        // Show only this block to users profile page with role seller. Roles are checked in Admin page. Here we just check user
+        if (arg(0) == 'user' && $user->uid == arg(1) && arg(2) == '' )  { 
+        $fruits = array('Tangerines', 'Apples', 'Oranges', 'Plums');
+        
+        $theme_args = array('items' => $fruits, 'type' => 'ul');
+        $content = theme('item_list', $theme_args);
+        
+        $block = array(
+            'subject' => t('All fruits'),
+            'content' => $content,
+        );
+     }
+      break;
+  }
+  return $block;
 }
