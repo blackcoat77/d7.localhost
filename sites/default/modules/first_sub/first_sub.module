@@ -44,7 +44,11 @@ function first_sub_block_info()  {
  * Implements hook_block_view()
  */
 function first_sub_block_view($block_name = ' ')  {
-    if ($block_name == 'list_cities')  {
+    
+    if ($block_name == 'list_cities') {
+        global $user;  
+        // Show only this block to users profile page with role buyer. Roles are checked in Admin page. Here we just check user
+        if (arg(0) == 'user' && $user->uid == arg(1) && arg(2) == '' )  { 
         $cities = array('France' => 'Paris', 'Serbia' => 'Belgrade', 'USA' => 'Washington DC', 'Iceland' => 'Reykjavik');
         
         $theme_args = array('items' => $cities, 'type' => 'ul');
@@ -56,5 +60,6 @@ function first_sub_block_view($block_name = ' ')  {
         );
         
         return $block;
+        }
     }
 }
