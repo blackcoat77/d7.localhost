@@ -46,11 +46,11 @@ function first_sub_block_info()  {
 }
 
 /**
- * Implements hook_block_view()
+ * Implements hook_block_view() str.45
  */
 function first_sub_block_view($block_name = '') {
   // This example is adapted from node.module.
-  $block = array();
+  $block = '';
 
   switch ($block_name) {
     case 'list_cities':
