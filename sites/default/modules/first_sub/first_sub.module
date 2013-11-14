@@ -42,6 +42,11 @@ function first_sub_block_info()  {
         'cache' => DRUPAL_NO_CACHE,
     );
     
+    $blocks['list_colors'] = array(
+        'info' => t('list all colors'),
+        'cache' => DRUPAL_NO_CACHE,
+    );
+    
     return $blocks;
 }
 
@@ -85,6 +90,20 @@ function first_sub_block_view($block_name = '') {
         );
      }
       break;
+      
+    case 'list_colors':
+        
+        $colors = array('Yellow', 'Brown', 'blue', 'red', 'purple');
+        
+        $theme_args = array('items' => $colors, 'type' => 'ol');
+        $content = theme('item_list', $theme_args);
+        
+        $block = array(
+            'subject' => t('Print all colors from array'),
+            'content' => $content,
+        );
+        
+        break;
   }
   return $block;
 }
