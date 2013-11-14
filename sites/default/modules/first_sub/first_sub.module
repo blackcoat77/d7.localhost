@@ -47,6 +47,11 @@ function first_sub_block_info()  {
         'cache' => DRUPAL_NO_CACHE,
     );
     
+    $blocks['list_cars'] = array(
+        'info' => t('List all cars from my function'),
+        'cache' => DRUPAL_NO_CACHE,
+    );
+    
     return $blocks;
 }
 
@@ -58,7 +63,8 @@ function first_sub_block_view($block_name = '') {
   $block = '';
 
   switch ($block_name) {
-    case 'list_cities':
+      
+    case 'list_cities':  // List cities
         global $user;  
         // Show only this block to users profile page with role buyer. Roles are checked in Admin page. Here we just check user
         if (arg(0) == 'user' && $user->uid == arg(1) && arg(2) == '' )  { 
@@ -74,7 +80,7 @@ function first_sub_block_view($block_name = '') {
      }
       break;
 
-    case 'list_fruits':
+    case 'list_fruits':  // List fruits
         
         global $user;  
         // Show only this block to users profile page with role seller. Roles are checked in Admin page. Here we just check user
@@ -91,7 +97,7 @@ function first_sub_block_view($block_name = '') {
      }
       break;
       
-    case 'list_colors':
+    case 'list_colors': // List colors
         
         $colors = array('Yellow', 'Brown', 'blue', 'red', 'purple');
         
@@ -104,6 +110,23 @@ function first_sub_block_view($block_name = '') {
         );
         
         break;
-  }
+    
+    case 'list_cars': // List cars
+        
+        function my_cars()  {
+            $all_cars = array('Fiat', 'Lamborgini', 'Audi', 'Mercedes', 'Bentley');
+            return $all_cars;
+        }
+        
+        $cars = my_cars();
+        
+        $theme_args = array('items' => $cars, 'type' => 'ol');
+        $content = theme('item_list', $theme_args);
+        
+        $block = array(
+            'subject' => t('Print all cars from custom function'),
+            'content' => $content,
+        );
+}
   return $block;
 }
