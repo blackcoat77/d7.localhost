@@ -127,6 +127,8 @@ function first_sub_block_view($block_name = '') {
             'subject' => t('Print all cars from custom function'),
             'content' => $content,
         );
+        
+        break;
 }
   return $block;
 }
