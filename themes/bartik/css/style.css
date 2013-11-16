@@ -1651,6 +1651,6 @@ div.admin-panel .description {
 
 /************ Foo class from d7.localhost site page in book 68 **********************/
 
-.foo-list{
+.content > .item-list > .foo-list{
     background-color: #99ff99;
 }
