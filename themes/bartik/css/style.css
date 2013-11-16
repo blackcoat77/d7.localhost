@@ -1648,3 +1648,9 @@ div.admin-panel .description {
 #footer-wrapper .poll .bar .foreground {
   background-color: #ddd;
 }
+
+/************ Foo class from d7.localhost site page in book 68 **********************/
+
+.foo-list{
+    background-color: #99ff99;
+}

@@ -132,3 +132,10 @@ function first_sub_block_view($block_name = '') {
 }
   return $block;
 }
+
+
+// This function bellow fires before theme() and it alters the module beheviour before theme() is fired...page 68
+function first_sub_preprocess_item_list(&$variables)  {
+    // Add a class to the list wrapper
+    $variables['attributes']['class'][] = 'foo-list';
+}
