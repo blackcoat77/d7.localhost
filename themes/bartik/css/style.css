@@ -1654,3 +1654,8 @@ div.admin-panel .description {
 .content > .item-list > .foo-list{
     background-color: #99ff99;
 }
+
+div#block-first-sub-list-cars, .block block-first-sub {
+    background: #FCEBA9;
+    border: dashed 1px  black;
+}
