@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file alter_contact_form
+ * 
+ * This module alter and adds additional form field phone to contact form and alters hook_mail() to send
+ * phone numbers to the user
+ */
+
+//function alter_contact_form_form_alter(&$form, &$form_state, $form_id) {
+//  dsm($form_id);  // print form ID to messages
+//  dsm($form);  // pretty print array using Krumo to messages
+//}
+
+/**
+ * Implements hook_form_alter().
+ * @see http://api.drupal.org/api/function/hook_form_alter
+ * Adds new phone custom fields to the drupal default contact form
+ */
+function alter_contact_form_form_contact_site_form_alter(&$form, &$form_state, $form_id)  {
+    // add a phone number field to the contact form
+    $form['phone'] = array(
+        '#type' => 'textfield',
+        '#maxlength' => 20,
+        '#title' => t('Your phone number'),
+    );
+    
+    $order = array('name', 'mail', 'phone', 'subject', 'cid', 'message', 'copy', 'actions');
+    
+    // Order the elements by changing their #weight property.
+    foreach($order as $key => $field) {
+    $form[$field]['#weight'] = $key;
+  }
+}

@@ -1,0 +1,7 @@
+name = Alter Contact Form
+description = Adds phone field into contact form
+package = Drupal 7 Development
+core = 7.x
+
+files = alter_contact_form.module
+
