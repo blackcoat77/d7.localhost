@@ -565,3 +565,11 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  * Remove the leading hash signs to disable.
  */
 # $conf['allow_authorize_operations'] = FALSE;
+
+/**
+miko ads
+NOTE!  switch off for live sites on 0
+ads reroute_email configuration downloaded from this page module https://drupal.org/project/reroute_email
+*/
+
+$conf['reroute_email_enable'] = 1;
