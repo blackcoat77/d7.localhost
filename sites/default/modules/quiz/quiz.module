@@ -1,0 +1,122 @@
+<?php
+/**
+* Implements hook_menu()
+*/
+function quiz_menu() {
+	// quiz title form
+	$items['admin/config/system/quiz/title'] = array(
+		'title' => 'Quiz title',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('quiz_form'),
+		'access arguments' => array('administer site configuration'),
+		'type' => MENU_NORMAL_ITEM,
+	);
+	// admin page
+	$items['admin/config/system/quiz'] = array(
+		'title' => 'Quiz info',
+		'page callback' => 'quiz_admin_page',
+		'access arguments' => array('administer site configuration'),
+		'type' => MENU_NORMAL_ITEM,
+	);
+	// table of all quizzes
+	$items['quizzes'] = array(
+		'title' => 'Quiz info',
+		'page callback' => 'quiz_display_page',
+		'access callback' => true,
+		'type' => MENU_NORMAL_ITEM,
+	);
+
+	return $items;
+}
+
+/**
+* Returns the quiz info page
+*/
+function quiz_admin_page() {
+	return array('#markup' => '<p>'.t('This module shows you how to set up a simple module with a form that saves results to a database table.').'</p>');
+}
+
+/**
+* Returns quiz title form
+*/
+function quiz_form($form, &$form_state) {
+	$form = array();
+
+	// text field input
+	$form['title'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Title'),
+	);
+	// submit button
+	$form['submit'] = array(
+		'#type' => 'submit',
+		'#value' => t('Save quiz'),
+	);
+
+	return $form;
+}
+
+/**
+* Validates for empty title field
+*/
+function quiz_form_validate($form, &$form_state) {
+	if (empty($form_state['values']['title'])) {
+		// do not submit form if title field blank, return error message
+		form_set_error('title', t('Title field cannot be blank.'));
+	}
+}
+
+/**
+* Saves quiz title to database
+*/
+function quiz_form_submit($form, &$form_state) {
+	// save title to database
+	db_insert('quiz')
+		->fields(array(
+			'name' => $form_state['values']['title'],
+		))
+		->execute();
+	// show message
+	drupal_set_message(t('Your quiz has been saved'));
+}
+
+/**
+* Displays all quizzes in table
+*/
+function quiz_display_page() {
+	// add css inline
+	drupal_add_css('
+		#quiz-table tr.odd {
+			background:#333;
+			color:#fff;
+		}
+	', 'inline');
+	// add js inline
+	drupal_add_js("
+		(function ($) {
+			$(document).ready(function() {
+				$('#page-title').css('color', 'blue');
+			});
+		})(jQuery);
+	", 'inline');
+	// gets quiz data
+	$quiz = db_select('quiz', 'q')
+		->fields('q')
+		->execute()
+		->fetchAll();
+	// table header
+	$header = array(
+		t('Quiz ID'),
+		t('Name'),
+	);
+	// table rows
+	$rows = array();
+	foreach ($quiz as $q) {
+		$rows[] = array(
+			$q->qid,
+			$q->name,
+		);
+	}
+
+	return theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('id' => 'quiz-table')));
+}

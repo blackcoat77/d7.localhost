@@ -1,0 +1,25 @@
+<?php
+/**
+* Implements hook_schema
+*/
+function quiz_schema() {
+	// "quiz" is the name of the table
+	$schema['quiz'] = array(
+		'description' => 'Base table for quiz.',
+		'fields' => array(
+			'qid' => array(
+				'description' => 'Quiz ID',
+				'type' => 'serial',
+			),
+			'name' => array(
+				'description' => 'Quiz title',
+				'type' => 'varchar',
+				'length' => 255,
+				'default' => '',
+			),
+		),
+		'primary key' => array('qid'),
+	);
+
+	return $schema;
+}

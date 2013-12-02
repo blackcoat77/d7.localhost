@@ -1,0 +1,19 @@
+name = Quiz Module
+description = This module creates a quiz.
+package = Drupal 7 Development
+core = 7.x
+
+
+; link on module page to configuration page
+configure = admin/config/system/quiz
+
+; stylesheets added to module pages
+; stylesheets[all][] = quiz.css
+
+; javascript files add to module pages
+; scripts[] = quiz.js
+
+; other modules required to run module
+; dependencies[] = views
+; list of files with php classes (often used with views)
+; files[] = quiz.extra.inc
