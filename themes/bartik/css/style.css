@@ -53,7 +53,7 @@ kbd,
 samp,
 var {
   padding: 0 0.4em;
-  font-size: 0.77em;
+  font-size: 0.857em;
   font-family: Menlo, Consolas, "Andale Mono", "Lucida Console", "Nimbus Mono L", "DejaVu Sans Mono", monospace, "Courier New";
 }
 code {
@@ -1647,15 +1647,4 @@ div.admin-panel .description {
 }
 #footer-wrapper .poll .bar .foreground {
   background-color: #ddd;
-}
-
-/************ Foo class from d7.localhost site page in book 68 **********************/
-
-.content > .item-list > .foo-list{
-    background-color: #99ff99;
-}
-
-div#block-first-sub-list-cars, .block block-first-sub {
-    background: #FCEBA9;
-    border: dashed 1px  black;
 }
