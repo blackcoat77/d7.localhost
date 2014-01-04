@@ -1,0 +1,102 @@
+<?php
+
+/**
+ * This module serves to show how to create simple module in drupal 7 using hook and menus and forms and variables
+ * to insert data into our database
+ * 
+ * @see http://justinphelan.com/post/how-write-your-own-module-drupal-7
+ */
+
+/*
+ * Implements hook_help()
+ */
+function mymodule_help($path, $arg)  {
+    switch ($path)  {
+        case 'admin/help#mymodule' :
+            return '<p>' . t('This is help info for our mymodule') . '</p>';
+    }
+}
+
+/*
+ * Implements hook_permission()
+ */
+function mymodule_permission()  {
+    return array(
+        'edit my settings' => array(
+            'title' => t('Edit my settings'),
+            'description' => t('Edit my custom settings page'),
+        ),
+    );
+}
+
+/*
+ * Implements hook_menu()
+ */
+function mymodule_menu()  {
+    $items = array();
+    $items['manage/mysettings'] = array(
+        'title' => 'My settings',
+        'description' => 'My custom settings',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('mymodule_form'),
+        'access arguments' => array('edit my settings'),
+        'type' => MENU_NORMAL_ITEM,
+    );
+    return $items;
+}
+
+/*
+ * Implements hook_form()
+ */
+function mymodule_form()  {
+    
+    $form = array();
+    
+    $form['mymodule_my_name'] = array(
+        '#type' => 'textfield',
+        '#title' => t('My name'),
+        '#default_value' =>  variable_get('mymodule_my_name', ' '),
+        '#required' => TRUE,
+    );
+    
+    $form['mymodule_about_me'] = array(
+        '#type' => 'textarea',
+        '#title' => t('About me'),
+        '#default_value' => variable_get('mymodule_about_me', ' '),
+        '#required' => TRUE,
+    );
+    
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Submit',
+    );
+    
+    $form['#submit'][] = 'system_settings_form_submit';
+    
+    return $form;
+    
+}
+
+/*
+ * Implements hook_block_info()
+ */
+function mymodule_block_info()  {
+    $blocks['mymodule_about_me'] = array(
+        'info' => t('Block About Me'),
+    );
+    return $blocks;
+}
+
+/*
+ * Implements hook_block_view()
+ */
+function mymodule_block_view($delta = ' ')  {
+    $block = array();
+    switch ($delta) {
+        case 'mymodule_about_me' :
+            $block['subject'] = variable_get('mymodule_my_title', ' ');
+            $block['content'] = variable_get('mymodule_about_me', ' ');
+            break;
+    }
+    return $block;
+}

@@ -1,0 +1,4 @@
+name = My Module
+description = My module serves to show some basic things about creating the modules in drupal 7
+package = Drupal 7 Development
+core = 7.x
