@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * This modules shows few node hooks and permissions.
+ * The goal is to show some data in every node on page and later to specify only one node which we want.
+ */
+
+
+/**
+ * Implements hook_help();
+ */
+function demo_help($path, $arg)  {
+    switch ($path)  {
+        case 'admin/help#demo':
+            return '<p>' .  t('This is a simple help of demo module') . '</p>' ;
+            
+        case 'node/%':
+            return '<div class="help-text-node">' . t('Hello from demo module and hook_help function') . '</div>';
+    }
+}
+
+/**
+ * Implements hook_permission();
+ */
+function demo_permission()  {
+    return array(
+        'administer my demo module' => array(
+        'title' => t('Permission for Demo module'),
+        'description' => t('Perform administration task for Demo module'),
+    ),
+  );
+    
+}
+
+/**
+ * Implements hook_node_view();
+ */
+function demo_node_view($node, $view_mode, $langcode)  {
+    global $user;
+    if ($node->type == 'page' && $view_mode == 'full' && isset($user->roles[3]))  { //Print only if the node type is page and in full mode and user role ID is 3 ( it means admin)
+        
+    $node->content['demo_field'] = array(
+        '#type' => 'markup',
+        '#markup' => '<p class="demo">' . t('Hello from function demo_node_view from demo module') . '</p>',
+        '#weight' => -10,
+    );
+    
+    $node->content['demo_list'] = array(
+        '#items' => array("Hi","You call me from","demo module","Line 46"),
+        '#theme' => 'item_list',
+        '#weight' => -9,
+    );
+//    krumo($node);
+   }
+}
+

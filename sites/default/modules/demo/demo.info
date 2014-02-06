@@ -1,0 +1,4 @@
+name = Demo module 
+description = This module demonstrates some hooks like hook_node_view, save , peprmissions etc
+package = Drupal 7 Development
+core = 7.x
