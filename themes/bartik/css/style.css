@@ -1660,3 +1660,15 @@ div#block-first-sub-list-cars, .block block-first-sub {
   background: #FCEBA9;
   border: dashed 1px  black;
 }
+
+.help-text-node  {
+    text-align: center;
+    background-color: tomato;
+   font: normal small-caps 120%/120% fantasy;
+}
+
+p.demo  {
+    background-color: turquoise;
+    text-align: center;
+    font: x-large/110% "new century schoolbook", serif;
+}
