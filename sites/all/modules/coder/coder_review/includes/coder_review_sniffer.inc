@@ -85,7 +85,8 @@ function _coder_review_sniffer_callback(array &$coder_args, array $review, array
     $phpcs->setCli($phpcs_cli);
 
     $sniffer_dir = __DIR__ . '/../../coder_sniffer/Drupal';
-    $phpcs->process(array(), $sniffer_dir, array());
+    $phpcs->setTokenListeners($sniffer_dir, array());
+    $phpcs->populateCustomRules();
     $phpcs->populateTokenListeners();
   }
 

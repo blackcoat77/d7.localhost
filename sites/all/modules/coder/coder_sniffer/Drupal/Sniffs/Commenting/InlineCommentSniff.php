@@ -211,6 +211,21 @@ class Drupal_Sniffs_Commenting_InlineCommentSniff implements PHP_CodeSniffer_Sni
             }
         }
 
+        // Finally, the line below the last comment cannot be empty.
+        $start = false;
+        for ($i = ($stackPtr + 1); $i < $phpcsFile->numTokens; $i++) {
+            if ($tokens[$i]['line'] === ($tokens[$stackPtr]['line'] + 1)) {
+                if ($tokens[$i]['code'] !== T_WHITESPACE) {
+                    return;
+                }
+            } else if ($tokens[$i]['line'] > ($tokens[$stackPtr]['line'] + 1)) {
+                break;
+            }
+        }
+
+        $warning = 'There must be no blank line following an inline comment';
+        $phpcsFile->addWarning($warning, $stackPtr, 'SpacingAfter');
+
     }//end process()
 
 
